@@ -56,17 +56,18 @@ if custom_path:
     if ARGS.gt:
         basename = os.path.basename(annotation_file)
         filename, file_extension = os.path.splitext(basename)
-        ARGS.output_path = './from_kerasyolo3/' + filename.split('_')[0] + '/'
+        ARGS.output_path = './from_kerasyolo3/' + filename.split('_')[0] + '/' + 'groundtruths'
     else:
-        ARGS.output_path = './from_kerasyolo3/' + annotation_file.split('/')[11] + '/'
-if ARGS.gt:
-    basename = os.path.basename(ARGS.gt)
-    filename, file_extension = os.path.splitext(basename)
-    ARGS.output_path += '_' + filename + '_gt'
+        ARGS.output_path = './from_kerasyolo3/' + annotation_file.split('/')[11] + '/' + 'detections'
 else:
-    basename = os.path.basename(ARGS.dr)
-    filename, file_extension = os.path.splitext(basename)
-    ARGS.output_path += '_' + filename + '_dr'
+    if ARGS.gt:
+        basename = os.path.basename(ARGS.gt)
+        filename, file_extension = os.path.splitext(basename)
+        ARGS.output_path += '_' + filename + '_gt'
+    else:
+        basename = os.path.basename(ARGS.dr)
+        filename, file_extension = os.path.splitext(basename)
+        ARGS.output_path += '_' + filename + '_dr'
 os.makedirs(ARGS.output_path, exist_ok=True)
 
 with open(annotation_file, 'r') as annot_f:
